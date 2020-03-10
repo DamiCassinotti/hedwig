@@ -1,0 +1,29 @@
+{
+  "name": "hedwig",
+  "version": "0.0.1",
+  "description": "Hedwig project",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server webapp/ -a localhost -p 3000",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DamiCassinotti/hedwig.git"
+  },
+  "author": "DamiCassinotti",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DamiCassinotti/hedwig/issues"
+  },
+  "homepage": "https://github.com/DamiCassinotti/hedwig#readme",
+  "dependencies": {
+    "angular": "^1.7.9",
+    "angular-route": "^1.7.9",
+    "bootstrap": "^4.4.1",
+    "fontawesome": "^5.6.3",
+    "http-server": "^0.12.1",
+    "jquery": "^3.4.1",
+    "popper.js": "^1.16.1"
+  }
+}
