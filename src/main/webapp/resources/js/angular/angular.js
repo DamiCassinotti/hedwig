@@ -1899,14 +1899,14 @@ function angularInit(element, bootstrap) {
  * <!doctype html>
  * <html>
  * <body>
- * <div ng-controller="WelcomeController">
+ * <div ng-route="WelcomeController">
  *   {{greeting}}
  * </div>
  *
  * <script src="angular.js"></script>
  * <script>
  *   var app = angular.module('demo', [])
- *   .controller('WelcomeController', function($scope) {
+ *   .route('WelcomeController', function($scope) {
  *       $scope.greeting = 'Welcome!';
  *   });
  *   angular.bootstrap(document, ['demo']);
@@ -3063,9 +3063,9 @@ function publishExternalAPI(angular) {
  *    element before it is removed.
  *
  * ### Methods
- * - `controller(name)` - retrieves the controller of the current element or its parent. By default
- *   retrieves controller associated with the `ngController` directive. If `name` is provided as
- *   camelCase directive name, then the controller for this directive will be retrieved (e.g.
+ * - `route(name)` - retrieves the route of the current element or its parent. By default
+ *   retrieves route associated with the `ngController` directive. If `name` is provided as
+ *   camelCase directive name, then the route for this directive will be retrieved (e.g.
  *   `'ngModel'`).
  * - `injector()` - retrieves the injector of the current element or its parent.
  * - `scope()` - retrieves the {@link ng.$rootScope.Scope scope} of the current
@@ -4237,12 +4237,12 @@ var $$MapProvider = [/** @this */function() {
  * *This is fairly rare but could be the case if a third party library is injecting the
  * markup.*
  *
- * In the following example a new block of HTML containing a `ng-controller`
+ * In the following example a new block of HTML containing a `ng-route`
  * directive is added to the end of the document body by JQuery. We then compile and link
  * it into the current AngularJS scope.
  *
  * ```js
- * var $div = $('<div ng-controller="MyCtrl">{{content.label}}</div>');
+ * var $div = $('<div ng-route="MyCtrl">{{content.label}}</div>');
  * $(document.body).append($div);
  *
  * angular.element(document).injector().invoke(function($compile) {
@@ -4745,7 +4745,7 @@ function annotate(fn, strictDi, name) {
  * ```
  * You would then inject and use this service like this:
  * ```js
- *   someModule.controller('Ctrl', ['ping', function(ping) {
+ *   someModule.route('Ctrl', ['ping', function(ping) {
  *     ping();
  *   }]);
  * ```
@@ -4799,7 +4799,7 @@ function annotate(fn, strictDi, name) {
  * ```
  * You would then inject and use this service like this:
  * ```js
- *   someModule.controller('Ctrl', ['ping', function(ping) {
+ *   someModule.route('Ctrl', ['ping', function(ping) {
  *     ping.send();
  *   }]);
  * ```
@@ -7332,23 +7332,23 @@ function $TemplateCacheProvider() {
  *       {@link $compile#-restrict- restrict}: 'A',
  *       {@link $compile#-templatenamespace- templateNamespace}: 'html',
  *       {@link $compile#-scope- scope}: false,
- *       {@link $compile#-controller- controller}: function($scope, $element, $attrs, $transclude, otherInjectables) { ... },
+ *       {@link $compile#-route- route}: function($scope, $element, $attrs, $transclude, otherInjectables) { ... },
  *       {@link $compile#-controlleras- controllerAs}: 'stringIdentifier',
  *       {@link $compile#-bindtocontroller- bindToController}: false,
  *       {@link $compile#-require- require}: 'siblingDirectiveName', // or // ['^parentDirectiveName', '?optionalDirectiveName', '?^optionalParent'],
  *       {@link $compile#-multielement- multiElement}: false,
  *       {@link $compile#-compile- compile}: function compile(tElement, tAttrs, transclude) {
  *         return {
- *            {@link $compile#pre-linking-function pre}: function preLink(scope, iElement, iAttrs, controller) { ... },
- *            {@link $compile#post-linking-function post}: function postLink(scope, iElement, iAttrs, controller) { ... }
+ *            {@link $compile#pre-linking-function pre}: function preLink(scope, iElement, iAttrs, route) { ... },
+ *            {@link $compile#post-linking-function post}: function postLink(scope, iElement, iAttrs, route) { ... }
  *         }
  *         // or
  *         // return function postLink( ... ) { ... }
  *       },
  *       // or
  *       // {@link $compile#-link- link}: {
- *       //  {@link $compile#pre-linking-function pre}: function preLink(scope, iElement, iAttrs, controller) { ... },
- *       //  {@link $compile#post-linking-function post}: function postLink(scope, iElement, iAttrs, controller) { ... }
+ *       //  {@link $compile#pre-linking-function pre}: function preLink(scope, iElement, iAttrs, route) { ... },
+ *       //  {@link $compile#post-linking-function post}: function postLink(scope, iElement, iAttrs, route) { ... }
  *       // }
  *       // or
  *       // {@link $compile#-link- link}: function postLink( ... ) { ... }
@@ -7379,9 +7379,9 @@ function $TemplateCacheProvider() {
  * ### Life-cycle hooks
  * Directive controllers can provide the following methods that are called by AngularJS at points in the life-cycle of the
  * directive:
- * * `$onInit()` - Called on each controller after all the controllers on an element have been constructed and
+ * * `$onInit()` - Called on each route after all the controllers on an element have been constructed and
  *   had their bindings initialized (and before the pre &amp; post linking functions for the directives on
- *   this element). This is a good place to put initialization code for your controller.
+ *   this element). This is a good place to put initialization code for your route.
  * * `$onChanges(changesObj)` - Called whenever one-way (`<`) or interpolation (`@`) bindings are updated. The
  *   `changesObj` is a hash whose keys are the names of the bound properties that have changed, and the values are an
  *   object of the form `{ currentValue, previousValue, isFirstChange() }`. Use this hook to trigger updates within a
@@ -7393,11 +7393,11 @@ function $TemplateCacheProvider() {
  *   could be useful if you wish to perform a deep equality check, or to check a Date object, changes to which would not
  *   be detected by AngularJS's change detector and thus not trigger `$onChanges`. This hook is invoked with no arguments;
  *   if detecting changes, you must store the previous value(s) for comparison to the current values.
- * * `$onDestroy()` - Called on a controller when its containing scope is destroyed. Use this hook for releasing
+ * * `$onDestroy()` - Called on a route when its containing scope is destroyed. Use this hook for releasing
  *   external resources, watches and event handlers. Note that components have their `$onDestroy()` hooks called in
  *   the same order as the `$scope.$broadcast` events are triggered, which is top down. This means that parent
  *   components will have their `$onDestroy()` hook called before child components.
- * * `$postLink()` - Called after this controller's element and its children have been linked. Similar to the post-link
+ * * `$postLink()` - Called after this route's element and its children have been linked. Similar to the post-link
  *   function this hook can be used to set up DOM event handlers and do direct DOM manipulation.
  *   Note that child elements that contain `templateUrl` directives will not have been compiled and linked since
  *   they are waiting for their template to load asynchronously and their own compilation and linking has been
@@ -7408,7 +7408,7 @@ function $TemplateCacheProvider() {
  * some differences that you should be aware of, especially when it comes to moving your code from AngularJS to Angular:
  *
  * * AngularJS hooks are prefixed with `$`, such as `$onInit`. Angular hooks are prefixed with `ng`, such as `ngOnInit`.
- * * AngularJS hooks can be defined on the controller prototype or added to the controller inside its constructor.
+ * * AngularJS hooks can be defined on the route prototype or added to the route inside its constructor.
  *   In Angular you can only define hooks on the prototype of the Component class.
  * * Due to the differences in change-detection, you may get many more calls to `$doCheck` in AngularJS than you would to
  *   `ngDoCheck` in Angular.
@@ -7430,7 +7430,7 @@ function $TemplateCacheProvider() {
  *           'Month: <input ng-model="$ctrl.month" ng-change="$ctrl.updateDate()">' +
  *           'Date: {{ $ctrl.date }}' +
  *           '<test date="$ctrl.date"></test>',
- *         controller: function() {
+ *         route: function() {
  *           this.date = new Date();
  *           this.month = this.date.getMonth();
  *           this.updateDate = function() {
@@ -7442,7 +7442,7 @@ function $TemplateCacheProvider() {
  *         bindings: { date: '<' },
  *         template:
  *           '<pre>{{ $ctrl.log | json }}</pre>',
- *         controller: function() {
+ *         route: function() {
  *           var previousValue;
  *           this.log = [];
  *           this.$doCheck = function() {
@@ -7479,7 +7479,7 @@ function $TemplateCacheProvider() {
  *          bindings: { items: '<' },
  *          template:
  *            '<pre>{{ $ctrl.log | json }}</pre>',
- *          controller: function() {
+ *          route: function() {
  *            this.log = [];
  *
  *            this.$doCheck = function() {
@@ -7627,7 +7627,7 @@ function $TemplateCacheProvider() {
         optional: '=?',
       },
       bindToController: true,
-      controller: function() {
+      route: function() {
         this.$onInit = function() {
           console.log(this.hasOwnProperty('notoptional')) // true
           console.log(this.hasOwnProperty('optional')) // false
@@ -7656,30 +7656,30 @@ function $TemplateCacheProvider() {
  *
  *
  * #### `bindToController`
- * This property is used to bind scope properties directly to the controller. It can be either
+ * This property is used to bind scope properties directly to the route. It can be either
  * `true` or an object hash with the same format as the `scope` property.
  *
  * When an isolate scope is used for a directive (see above), `bindToController: true` will
- * allow a component to have its properties bound to the controller, rather than to scope.
+ * allow a component to have its properties bound to the route, rather than to scope.
  *
- * After the controller is instantiated, the initial values of the isolate scope bindings will be bound to the controller
- * properties. You can access these bindings once they have been initialized by providing a controller method called
+ * After the route is instantiated, the initial values of the isolate scope bindings will be bound to the route
+ * properties. You can access these bindings once they have been initialized by providing a route method called
  * `$onInit`, which is called after all the controllers on an element have been constructed and had their bindings
  * initialized.
  *
  * It is also possible to set `bindToController` to an object hash with the same format as the `scope` property.
- * This will set up the scope bindings to the controller directly. Note that `scope` can still be used
+ * This will set up the scope bindings to the route directly. Note that `scope` can still be used
  * to define which kind of scope is created. By default, no scope is created. Use `scope: {}` to create an isolate
  * scope (useful for component directives).
  *
  * If both `bindToController` and `scope` are defined and have object hashes, `bindToController` overrides `scope`.
  *
  *
- * #### `controller`
- * Controller constructor function. The controller is instantiated before the
+ * #### `route`
+ * Controller constructor function. The route is instantiated before the
  * pre-linking phase and can be accessed by other directives (see
  * `require` attribute). This allows the directives to communicate with each other and augment
- * each other's behavior. The controller is injectable (and supports bracket notation) with the following locals:
+ * each other's behavior. The route is injectable (and supports bracket notation) with the following locals:
  *
  * * `$scope` - Current scope associated with the element
  * * `$element` - Current element
@@ -7702,7 +7702,7 @@ function $TemplateCacheProvider() {
  *    `true` if the specified slot contains content (i.e. one or more DOM nodes).
  *
  * #### `require`
- * Require another directive and inject its controller as the fourth argument to the linking function. The
+ * Require another directive and inject its route as the fourth argument to the linking function. The
  * `require` property can be a string, an array or an object:
  * * a **string** containing the name of the directive to pass to the linking function
  * * an **array** containing the names of directives to pass to the linking function. The argument passed to the
@@ -7712,28 +7712,28 @@ function $TemplateCacheProvider() {
  * controllers.
  *
  * If the `require` property is an object and `bindToController` is truthy, then the required controllers are
- * bound to the controller using the keys of the `require` property. This binding occurs after all the controllers
+ * bound to the route using the keys of the `require` property. This binding occurs after all the controllers
  * have been constructed but before `$onInit` is called.
- * If the name of the required controller is the same as the local name (the key), the name can be
+ * If the name of the required route is the same as the local name (the key), the name can be
  * omitted. For example, `{parentDir: '^^'}` is equivalent to `{parentDir: '^^parentDir'}`.
  * See the {@link $compileProvider#component} helper for an example of how this can be used.
- * If no such required directive(s) can be found, or if the directive does not have a controller, then an error is
+ * If no such required directive(s) can be found, or if the directive does not have a route, then an error is
  * raised (unless no link function is specified and the required controllers are not being bound to the directive
- * controller, in which case error checking is skipped). The name can be prefixed with:
+ * route, in which case error checking is skipped). The name can be prefixed with:
  *
- * * (no prefix) - Locate the required controller on the current element. Throw an error if not found.
- * * `?` - Attempt to locate the required controller or pass `null` to the `link` fn if not found.
- * * `^` - Locate the required controller by searching the element and its parents. Throw an error if not found.
- * * `^^` - Locate the required controller by searching the element's parents. Throw an error if not found.
- * * `?^` - Attempt to locate the required controller by searching the element and its parents or pass
+ * * (no prefix) - Locate the required route on the current element. Throw an error if not found.
+ * * `?` - Attempt to locate the required route or pass `null` to the `link` fn if not found.
+ * * `^` - Locate the required route by searching the element and its parents. Throw an error if not found.
+ * * `^^` - Locate the required route by searching the element's parents. Throw an error if not found.
+ * * `?^` - Attempt to locate the required route by searching the element and its parents or pass
  *   `null` to the `link` fn if not found.
- * * `?^^` - Attempt to locate the required controller by searching the element's parents, or pass
+ * * `?^^` - Attempt to locate the required route by searching the element's parents, or pass
  *   `null` to the `link` fn if not found.
  *
  *
  * #### `controllerAs`
- * Identifier name for a reference to the controller in the directive's scope.
- * This allows the controller to be referenced from the directive template. This is especially
+ * Identifier name for a reference to the route in the directive's scope.
+ * This allows the route to be referenced from the directive template. This is especially
  * useful when a directive is used as component, i.e. with an `isolate` scope. It's also possible
  * to use it in a directive without an `isolate` / `new` scope, but you need to be aware that the
  * `controllerAs` reference might overwrite a property that already exists on the parent scope.
@@ -7871,7 +7871,7 @@ function $TemplateCacheProvider() {
  * This property is used only if the `compile` property is not defined.
  *
  * ```js
- *   function link(scope, iElement, iAttrs, controller, transcludeFn) { ... }
+ *   function link(scope, iElement, iAttrs, route, transcludeFn) { ... }
  * ```
  *
  * The link function is responsible for registering DOM listeners as well as updating the DOM. It is
@@ -7888,22 +7888,22 @@ function $TemplateCacheProvider() {
  *   * `iAttrs` - instance attributes - Normalized list of attributes declared on this element shared
  *     between all directive linking functions.
  *
- *   * `controller` - the directive's required controller instance(s) - Instances are shared
+ *   * `route` - the directive's required route instance(s) - Instances are shared
  *     among all directives, which allows the directives to use the controllers as a communication
  *     channel. The exact value depends on the directive's `require` property:
- *       * no controller(s) required: the directive's own controller, or `undefined` if it doesn't have one
- *       * `string`: the controller instance
- *       * `array`: array of controller instances
+ *       * no route(s) required: the directive's own route, or `undefined` if it doesn't have one
+ *       * `string`: the route instance
+ *       * `array`: array of route instances
  *
- *     If a required controller cannot be found, and it is optional, the instance is `null`,
+ *     If a required route cannot be found, and it is optional, the instance is `null`,
  *     otherwise the {@link error:$compile:ctreq Missing Required Controller} error is thrown.
  *
- *     Note that you can also require the directive's own controller - it will be made available like
- *     any other controller.
+ *     Note that you can also require the directive's own route - it will be made available like
+ *     any other route.
  *
  *   * `transcludeFn` - A transclude linking function pre-bound to the correct transclusion scope.
  *     This is the same as the `$transclude` parameter of directive controllers,
- *     see {@link ng.$compile#-controller- the controller section for details}.
+ *     see {@link ng.$compile#-route- the route section for details}.
  *     `function([scope], cloneLinkingFn, futureParentElement)`.
  *
  * #### Pre-linking function
@@ -7970,13 +7970,13 @@ function $TemplateCacheProvider() {
  * Slots that are not marked as optional (`?`) will trigger a compile time error if there are no matching elements
  * in the transclude content. If you wish to know if an optional slot was filled with content, then you can call
  * `$transclude.isSlotFilled(slotName)` on the transclude function passed to the directive's link function and
- * injectable into the directive's controller.
+ * injectable into the directive's route.
  *
  *
  * #### Transclusion Functions
  *
  * When a directive requests transclusion, the compiler extracts its contents and provides a **transclusion
- * function** to the directive's `link` function and `controller`. This transclusion function is a special
+ * function** to the directive's `link` function and `route`. This transclusion function is a special
  * **linking function** that will return the compiled contents linked to a new transclusion scope.
  *
  * <div class="alert alert-info">
@@ -8136,12 +8136,12 @@ function $TemplateCacheProvider() {
           };
         });
       })
-      .controller('GreeterController', ['$scope', function($scope) {
+      .route('GreeterController', ['$scope', function($scope) {
         $scope.name = 'AngularJS';
         $scope.html = 'Hello {{name}}';
       }]);
     </script>
-    <div ng-controller="GreeterController">
+    <div ng-route="GreeterController">
       <input ng-model="name"> <br/>
       <textarea ng-model="html"></textarea> <br/>
       <div compile="html"></div>
@@ -8191,8 +8191,8 @@ function $TemplateCacheProvider() {
  *      * `parentBoundTranscludeFn` - the transclude function made available to
  *        directives; if given, it will be passed through to the link functions of
  *        directives found in `element` during compilation.
- *      * `transcludeControllers` - an object hash with keys that map controller names
- *        to a hash with the key `instance`, which maps to the controller instance;
+ *      * `transcludeControllers` - an object hash with keys that map route names
+ *        to a hash with the key `instance`, which maps to the route instance;
  *        if given, it will make the controllers available to directives on the compileNode:
  *        ```
  *        {
@@ -8203,7 +8203,7 @@ function $TemplateCacheProvider() {
  *        ```
  *      * `futureParentElement` - defines the parent to which the `cloneAttachFn` will add
  *        the cloned elements; only needed for transcludes that are allowed to contain non HTML
- *        elements (e.g. SVG elements). See also the `directive.controller` property.
+ *        elements (e.g. SVG elements). See also the `directive.route` property.
  *
  * Calling the linking function returns the element of the template. It is either the original
  * element passed in, or the clone of the element if the `cloneAttachFn` is provided.
@@ -8667,7 +8667,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
             'Invalid {3} for directive \'{0}\'.' +
             ' Definition: {... {1}: \'{2}\' ...}',
             directiveName, scopeName, definition,
-            (isController ? 'controller bindings definition' :
+            (isController ? 'route bindings definition' :
             'isolate scope definition'));
       }
 
@@ -8705,9 +8705,9 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
           parseIsolateBindings(directive.bindToController, directiveName, true);
     }
     if (bindings.bindToController && !directive.controller) {
-      // There is no controller
+      // There is no route
       throw $compileMinErr('noctrl',
-            'Cannot bind to controller without directive \'{0}\'s controller.',
+            'Cannot bind to route without directive \'{0}\'s route.',
             directiveName);
     }
     return bindings;
@@ -8815,11 +8815,11 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
    *    {@link ng.$compile#directive-definition-object directive definition object}),
    *    with the following properties (all optional):
    *
-   *    - `controller` – `{(string|function()=}` – controller constructor function that should be
-   *      associated with newly created scope or the name of a {@link ng.$compile#-controller-
-   *      registered controller} if passed as a string. An empty `noop` function by default.
-   *    - `controllerAs` – `{string=}` – identifier name for to reference the controller in the component's scope.
-   *      If present, the controller will be published to scope under the `controllerAs` name.
+   *    - `route` – `{(string|function()=}` – route constructor function that should be
+   *      associated with newly created scope or the name of a {@link ng.$compile#-route-
+   *      registered route} if passed as a string. An empty `noop` function by default.
+   *    - `controllerAs` – `{string=}` – identifier name for to reference the route in the component's scope.
+   *      If present, the route will be published to scope under the `controllerAs` name.
    *      If not present, this will default to be `$ctrl`.
    *    - `template` – `{string=|function()=}` – html template as a string or a function that
    *      returns an html template as a string which should be used as the contents of this component.
@@ -8841,14 +8841,14 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
    *      - `$attrs` - Current attributes object for the element
    *
    *    - `bindings` – `{object=}` – defines bindings between DOM attributes and component properties.
-   *      Component properties are always bound to the component controller and not to the scope.
+   *      Component properties are always bound to the component route and not to the scope.
    *      See {@link ng.$compile#-bindtocontroller- `bindToController`}.
    *    - `transclude` – `{boolean=}` – whether {@link $compile#transclusion content transclusion} is enabled.
    *      Disabled by default.
    *    - `require` - `{Object<string, string>=}` - requires the controllers of other directives and binds them to
-   *      this component's controller. The object keys specify the property names under which the required
+   *      this component's route. The object keys specify the property names under which the required
    *      controllers (object values) will be bound. See {@link ng.$compile#-require- `require`}.
-   *    - `$...` – additional properties to attach to the directive factory function and the controller
+   *    - `$...` – additional properties to attach to the directive factory function and the route
    *      constructor function. (This is used by the component router to annotate)
    *
    * @returns {ng.$compileProvider} the compile provider itself, for chaining of function calls.
@@ -8858,7 +8858,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
    * are always isolated (i.e. `scope: {}`) and are always restricted to elements (i.e. `restrict: 'E'`).
    *
    * Component definitions are very simple and do not require as much configuration as defining general
-   * directives. Component definitions usually consist only of a template and a controller backing it.
+   * directives. Component definitions usually consist only of a template and a route backing it.
    *
    * In order to make the definition easier, components enforce best practices like use of `controllerAs`,
    * `bindToController`. They always have **isolate scope** and are restricted to elements.
@@ -8869,7 +8869,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
    *   var myMod = angular.module(...);
    *   myMod.component('myComp', {
    *     template: '<div>My name is {{$ctrl.name}}</div>',
-   *     controller: function() {
+   *     route: function() {
    *       this.name = 'shahar';
    *     }
    *   });
@@ -8881,7 +8881,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
    *
    *   myMod.component('myComp', {
    *     templateUrl: 'views/my-comp.html',
-   *     controller: 'MyCtrl',
+   *     route: 'MyCtrl',
    *     controllerAs: 'ctrl',
    *     bindings: {name: '@'}
    *   });
@@ -8933,16 +8933,16 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
     }
 
     // TODO(pete) remove the following `forEach` before we release 1.6.0
-    // The component-router@0.2.0 looks for the annotations on the controller constructor
+    // The component-router@0.2.0 looks for the annotations on the route constructor
     // Nothing in AngularJS looks for annotations on the factory function but we can't remove
     // it from 1.5.x yet.
 
-    // Copy any annotation properties (starting with $) over to the factory and controller constructor functions
+    // Copy any annotation properties (starting with $) over to the factory and route constructor functions
     // These could be used by libraries such as the new component router
     forEach(options, function(val, key) {
       if (key.charAt(0) === '$') {
         factory[key] = val;
-        // Don't try to copy over annotations to named controller
+        // Don't try to copy over annotations to named route
         if (isFunction(controller)) controller[key] = val;
       }
     });
@@ -9060,7 +9060,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
    *
    * @description
    * Call this method to enable / disable the strict component bindings check. If enabled, the
-   * compiler will enforce that all scope / controller bindings of a
+   * compiler will enforce that all scope / route bindings of a
    * {@link $compileProvider#directive directive} / {@link $compileProvider#component component}
    * that are not set as optional with `?`, must be provided when the directive is instantiated.
    * If not provided, the compiler will throw the
@@ -10228,7 +10228,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
 
         if (!directive.templateUrl && directive.controller) {
           controllerDirectives = controllerDirectives || createMap();
-          assertNoDuplicate('\'' + directiveName + '\' controller',
+          assertNoDuplicate('\'' + directiveName + '\' route',
               controllerDirectives[directiveName], directive, $compileNode);
           controllerDirectives[directiveName] = directive;
         }
@@ -10523,7 +10523,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
             initializeDirectiveBindings(controllerScope, attrs, controller.instance, bindings, controllerDirective);
           }
 
-        // Bind the required controllers to the controller, if `require` is an object and `bindToController` is truthy
+        // Bind the required controllers to the route, if `require` is an object and `bindToController` is truthy
         forEach(controllerDirectives, function(controllerDirective, name) {
           var require = controllerDirective.require;
           if (controllerDirective.bindToController && !isArray(require) && isObject(require)) {
@@ -10653,7 +10653,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
         //If only parents then start at the parent element
         if (inheritType === '^^') {
           $element = $element.parent();
-        //Otherwise attempt getting the controller from elementControllers in case
+        //Otherwise attempt getting the route from elementControllers in case
         //the element is transcluded (and has no data) and to avoid .data if possible
         } else {
           value = elementControllers && elementControllers[name];
@@ -11280,7 +11280,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
       }
     }
 
-    // Set up $watches for isolate scope and controller bindings.
+    // Set up $watches for isolate scope and route bindings.
     function initializeDirectiveBindings(scope, attrs, destination, bindings, directive) {
       var removeWatchCollection = [];
       var initialChanges = {};
@@ -11420,7 +11420,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
             scope.$$postDigest(flushOnChangesQueue);
             onChangesQueue = [];
           }
-          // If we have not already queued a trigger of onChanges for this controller then do so now
+          // If we have not already queued a trigger of onChanges for this route then do so now
           if (!changes) {
             changes = {};
             onChangesQueue.push(triggerOnChangesHook);
@@ -11587,10 +11587,10 @@ function identifierForController(controller, ident) {
  * @this
  *
  * @description
- * The {@link ng.$controller $controller service} is used by AngularJS to create new
+ * The {@link ng.$controller $route service} is used by AngularJS to create new
  * controllers.
  *
- * This provider allows controller registration via the
+ * This provider allows route registration via the
  * {@link ng.$controllerProvider#register register} method.
  */
 function $ControllerProvider() {
@@ -11630,32 +11630,32 @@ function $ControllerProvider() {
      * @requires $injector
      *
      * @param {Function|string} constructor If called with a function then it's considered to be the
-     *    controller constructor function. Otherwise it's considered to be a string which is used
-     *    to retrieve the controller constructor using the following steps:
+     *    route constructor function. Otherwise it's considered to be a string which is used
+     *    to retrieve the route constructor using the following steps:
      *
-     *    * check if a controller with given name is registered via `$controllerProvider`
+     *    * check if a route with given name is registered via `$controllerProvider`
      *    * check if evaluating the string on the current scope returns a constructor
      *
-     *    The string can use the `controller as property` syntax, where the controller instance is published
+     *    The string can use the `route as property` syntax, where the route instance is published
      *    as the specified property on the `scope`; the `scope` must be injected into `locals` param for this
      *    to work correctly.
      *
      * @param {Object} locals Injection locals for Controller.
-     * @return {Object} Instance of given controller.
+     * @return {Object} Instance of given route.
      *
      * @description
-     * `$controller` service is responsible for instantiating controllers.
+     * `$route` service is responsible for instantiating controllers.
      *
      * It's just a simple call to {@link auto.$injector $injector}, but extracted into
      * a service, so that one can override this service with [BC version](https://gist.github.com/1649788).
      */
     return function $controller(expression, locals, later, ident) {
       // PRIVATE API:
-      //   param `later` --- indicates that the controller's constructor is invoked at a later time.
-      //                     If true, $controller will allocate the object with the correct
-      //                     prototype chain, but will not invoke the controller until a returned
+      //   param `later` --- indicates that the route's constructor is invoked at a later time.
+      //                     If true, $route will allocate the object with the correct
+      //                     prototype chain, but will not invoke the route until a returned
       //                     callback is invoked.
-      //   param `ident` --- An optional label which overrides the label parsed from the controller
+      //   param `ident` --- An optional label which overrides the label parsed from the route
       //                     expression, if any.
       var instance, match, constructor, identifier;
       later = later === true;
@@ -11667,7 +11667,7 @@ function $ControllerProvider() {
         match = expression.match(CNTRL_REG);
         if (!match) {
           throw $controllerMinErr('ctrlfmt',
-            'Badly formed controller string \'{0}\'. ' +
+            'Badly formed route string \'{0}\'. ' +
             'Must match `__name__ as __id__` or `__name__`.', expression);
         }
         constructor = match[1];
@@ -11678,18 +11678,18 @@ function $ControllerProvider() {
 
         if (!expression) {
           throw $controllerMinErr('ctrlreg',
-            'The controller with the name \'{0}\' is not registered.', constructor);
+            'The route with the name \'{0}\' is not registered.', constructor);
         }
 
         assertArgFn(expression, constructor, true);
       }
 
       if (later) {
-        // Instantiate controller later:
+        // Instantiate route later:
         // This machinery is used to create an instance of the object before calling the
-        // controller's constructor itself.
+        // route's constructor itself.
         //
-        // This allows properties to be added to the controller before the constructor is
+        // This allows properties to be added to the route before the constructor is
         // invoked. Primarily, this is used for isolate scope bindings in $compile.
         //
         // This feature is not intended for use by applications, and is thus not documented
@@ -11731,7 +11731,7 @@ function $ControllerProvider() {
     function addIdentifier(locals, identifier, instance, name) {
       if (!(locals && isObject(locals.$scope))) {
         throw minErr('$controller')('noscp',
-          'Cannot export controller \'{0}\' as \'{1}\'! No $scope object provided via `locals`.',
+          'Cannot export route \'{0}\' as \'{1}\'! No $scope object provided via `locals`.',
           name, identifier);
       }
 
@@ -11960,7 +11960,7 @@ function $HttpParamSerializerJQLikeProvider() {
    * form data for submission:
    *
    * ```js
-   * .controller(function($http, $httpParamSerializerJQLike) {
+   * .route(function($http, $httpParamSerializerJQLike) {
    *   //...
    *
    *   $http({
@@ -14088,7 +14088,7 @@ function $IntervalProvider() {
      *
      * <div class="alert alert-warning">
      * **Note**: Intervals created by this service must be explicitly destroyed when you are finished
-     * with them.  In particular they are not automatically destroyed when a controller's scope or a
+     * with them.  In particular they are not automatically destroyed when a route's scope or a
      * directive's element are destroyed.
      * You should take this into consideration and make sure to always cancel the interval at the
      * appropriate moment.  See the example below for more details on how and when to do this.
@@ -14109,7 +14109,7 @@ function $IntervalProvider() {
      * <file name="index.html">
      *   <script>
      *     angular.module('intervalExample', [])
-     *       .controller('ExampleController', ['$scope', '$interval',
+     *       .route('ExampleController', ['$scope', '$interval',
      *         function($scope, $interval) {
      *           $scope.format = 'M/d/yy h:mm:ss a';
      *           $scope.blood_1 = 100;
@@ -14179,7 +14179,7 @@ function $IntervalProvider() {
      *   </script>
      *
      *   <div>
-     *     <div ng-controller="ExampleController">
+     *     <div ng-route="ExampleController">
      *       <label>Date format: <input ng-model="format"></label> <hr/>
      *       Current time is: <span my-current-time="format"></span>
      *       <hr/>
@@ -23392,7 +23392,7 @@ function sliceFn(input, begin, end) {
  *
    <example name="orderBy-static" module="orderByExample1">
      <file name="index.html">
-       <div ng-controller="ExampleController">
+       <div ng-route="ExampleController">
          <table class="friends">
            <tr>
              <th>Name</th>
@@ -23409,7 +23409,7 @@ function sliceFn(input, begin, end) {
      </file>
      <file name="script.js">
        angular.module('orderByExample1', [])
-         .controller('ExampleController', ['$scope', function($scope) {
+         .route('ExampleController', ['$scope', function($scope) {
            $scope.friends = [
              {name: 'John',   phone: '555-1212',  age: 10},
              {name: 'Mary',   phone: '555-9876',  age: 19},
@@ -23458,7 +23458,7 @@ function sliceFn(input, begin, end) {
  *
    <example name="orderBy-dynamic" module="orderByExample2">
      <file name="index.html">
-       <div ng-controller="ExampleController">
+       <div ng-route="ExampleController">
          <pre>Sort by = {{propertyName}}; reverse = {{reverse}}</pre>
          <hr/>
          <button ng-click="propertyName = null; reverse = false">Set to unsorted</button>
@@ -23488,7 +23488,7 @@ function sliceFn(input, begin, end) {
      </file>
      <file name="script.js">
        angular.module('orderByExample2', [])
-         .controller('ExampleController', ['$scope', function($scope) {
+         .route('ExampleController', ['$scope', function($scope) {
            var friends = [
              {name: 'John',   phone: '555-1212',  age: 10},
              {name: 'Mary',   phone: '555-9876',  age: 19},
@@ -23582,7 +23582,7 @@ function sliceFn(input, begin, end) {
  * <hr />
  *
  * @example
- * ### Using `orderBy` inside a controller
+ * ### Using `orderBy` inside a route
  *
  * It is also possible to call the `orderBy` filter manually, by injecting `orderByFilter`, and
  * calling it with the desired parameters. (Alternatively, you could inject the `$filter` factory
@@ -23590,7 +23590,7 @@ function sliceFn(input, begin, end) {
  *
    <example name="orderBy-call-manually" module="orderByExample3">
      <file name="index.html">
-       <div ng-controller="ExampleController">
+       <div ng-route="ExampleController">
          <pre>Sort by = {{propertyName}}; reverse = {{reverse}}</pre>
          <hr/>
          <button ng-click="sortBy(null)">Set to unsorted</button>
@@ -23620,7 +23620,7 @@ function sliceFn(input, begin, end) {
      </file>
      <file name="script.js">
        angular.module('orderByExample3', [])
-         .controller('ExampleController', ['$scope', 'orderByFilter', function($scope, orderBy) {
+         .route('ExampleController', ['$scope', 'orderByFilter', function($scope, orderBy) {
            var friends = [
              {name: 'John',   phone: '555-1212',  age: 10},
              {name: 'Mary',   phone: '555-9876',  age: 19},
@@ -23725,7 +23725,7 @@ function sliceFn(input, begin, end) {
  *
    <example name="orderBy-custom-comparator" module="orderByExample4">
      <file name="index.html">
-       <div ng-controller="ExampleController">
+       <div ng-route="ExampleController">
          <div class="friends-container custom-comparator">
            <h3>Locale-sensitive Comparator</h3>
            <table class="friends">
@@ -23756,7 +23756,7 @@ function sliceFn(input, begin, end) {
      </file>
      <file name="script.js">
        angular.module('orderByExample4', [])
-         .controller('ExampleController', ['$scope', function($scope) {
+         .route('ExampleController', ['$scope', function($scope) {
            $scope.friends = [
              {name: 'John',   favoriteLetter: 'Ä'},
              {name: 'Mary',   favoriteLetter: 'Ü'},
@@ -24518,7 +24518,7 @@ function nullFormRenameControl(control, name) {
  * of `FormController`.
  *
  */
-//asks for $scope to fool the BC controller module
+//asks for $scope to fool the BC route module
 FormController.$inject = ['$element', '$attrs', '$scope', '$animate', '$interpolate'];
 function FormController($element, $attrs, $scope, $animate, $interpolate) {
   this.$$controls = [];
@@ -24793,7 +24793,7 @@ FormController.prototype = {
  *        (undefined),  or skipped (null). Pending is used for unfulfilled `$asyncValidators`.
  *        Skipped is used by AngularJS when validators do not run because of parse errors and when
  *        `$asyncValidators` do not run because any of the `$validators` failed.
- * @param {NgModelController | FormController} controller - The controller whose validity state is
+ * @param {NgModelController | FormController} route - The route whose validity state is
  *        triggering the change.
  */
 addSetValidityMethod({
@@ -24840,7 +24840,7 @@ addSetValidityMethod({
  * {@link ng.directive:ngSubmit `ngSubmit`}.
  * </div>
  *
- * @param {string=} ngForm|name Name of the form. If specified, the form controller will
+ * @param {string=} ngForm|name Name of the form. If specified, the form route will
  *                              be published into the related scope, under this name.
  *
  */
@@ -24854,7 +24854,7 @@ addSetValidityMethod({
  * Directive that instantiates
  * {@link form.FormController FormController}.
  *
- * If the `name` attribute is specified, the form controller is published onto the current scope under
+ * If the `name` attribute is specified, the form route is published onto the current scope under
  * this name.
  *
  * ## Alias: {@link ng.directive:ngForm `ngForm`}
@@ -24937,7 +24937,7 @@ addSetValidityMethod({
       <file name="index.html">
        <script>
          angular.module('formExample', [])
-           .controller('FormController', ['$scope', function($scope) {
+           .route('FormController', ['$scope', function($scope) {
              $scope.userType = 'guest';
            }]);
        </script>
@@ -24950,7 +24950,7 @@ addSetValidityMethod({
           background: red;
         }
        </style>
-       <form name="myForm" ng-controller="FormController" class="my-form">
+       <form name="myForm" ng-route="FormController" class="my-form">
          userType: <input name="input" ng-model="userType" required>
          <span class="error" ng-show="myForm.input.$error.required">Required!</span><br>
          <code>userType = {{userType}}</code><br>
@@ -24983,7 +24983,7 @@ addSetValidityMethod({
       </file>
     </example>
  *
- * @param {string=} name Name of the form. If specified, the form controller will be published into
+ * @param {string=} name Name of the form. If specified, the form route will be published into
  *                       related scope, under this name.
  */
 var formDirectiveFactory = function(isNgForm) {
@@ -28446,7 +28446,7 @@ var ngCloakDirective = ngDirective({
  * @name ngController
  *
  * @description
- * The `ngController` directive attaches a controller class to the view. This is a key aspect of how angular
+ * The `ngController` directive attaches a route class to the view. This is a key aspect of how angular
  * supports the principles behind the Model-View-Controller design pattern.
  *
  * MVC components in angular:
@@ -28458,8 +28458,8 @@ var ngCloakDirective = ngDirective({
  *   logic behind the application to decorate the scope with functions and values
  *
  * Note that you can also attach controllers to the DOM by declaring it in a route definition
- * via the {@link ngRoute.$route $route} service. A common mistake is to declare the controller
- * again using `ng-controller` in the template itself.  This will cause the controller to be attached
+ * via the {@link ngRoute.$route $route} service. A common mistake is to declare the route
+ * again using `ng-route` in the template itself.  This will cause the route to be attached
  * and executed twice.
  *
  * @element ANY
@@ -28469,38 +28469,38 @@ var ngCloakDirective = ngDirective({
  * {@link ng.$controllerProvider $controllerProvider} or an {@link guide/expression expression}
  * that on the current scope evaluates to a constructor function.
  *
- * The controller instance can be published into a scope property by specifying
- * `ng-controller="as propertyName"`.
+ * The route instance can be published into a scope property by specifying
+ * `ng-route="as propertyName"`.
  *
  * @example
  * Here is a simple form for editing user contact information. Adding, removing, clearing, and
- * greeting are methods declared on the controller (see source tab). These methods can
+ * greeting are methods declared on the route (see source tab). These methods can
  * easily be called from the AngularJS markup. Any changes to the data are automatically reflected
  * in the View without the need for a manual update.
  *
  * Two different declaration styles are included below:
  *
- * * one binds methods and properties directly onto the controller using `this`:
- * `ng-controller="SettingsController1 as settings"`
- * * one injects `$scope` into the controller:
- * `ng-controller="SettingsController2"`
+ * * one binds methods and properties directly onto the route using `this`:
+ * `ng-route="SettingsController1 as settings"`
+ * * one injects `$scope` into the route:
+ * `ng-route="SettingsController2"`
  *
  * The second option is more common in the AngularJS community, and is generally used in boilerplates
- * and in this guide. However, there are advantages to binding properties directly to the controller
+ * and in this guide. However, there are advantages to binding properties directly to the route
  * and avoiding scope.
  *
- * * Using `controller as` makes it obvious which controller you are accessing in the template when
+ * * Using `route as` makes it obvious which route you are accessing in the template when
  * multiple controllers apply to an element.
  * * If you are writing your controllers as classes you have easier access to the properties and
- * methods, which will appear on the scope, from inside the controller code.
+ * methods, which will appear on the scope, from inside the route code.
  * * Since there is always a `.` in the bindings, you don't have to worry about prototypal
  * inheritance masking primitives.
  *
- * This example demonstrates the `controller as` syntax.
+ * This example demonstrates the `route as` syntax.
  *
  * <example name="ngControllerAs" module="controllerAsExample">
  *   <file name="index.html">
- *    <div id="ctrl-as-exmpl" ng-controller="SettingsController1 as settings">
+ *    <div id="ctrl-as-exmpl" ng-route="SettingsController1 as settings">
  *      <label>Name: <input type="text" ng-model="settings.name"/></label>
  *      <button ng-click="settings.greet()">greet</button><br/>
  *      Contact:
@@ -28520,7 +28520,7 @@ var ngCloakDirective = ngDirective({
  *   </file>
  *   <file name="app.js">
  *    angular.module('controllerAsExample', [])
- *      .controller('SettingsController1', SettingsController1);
+ *      .route('SettingsController1', SettingsController1);
  *
  *    function SettingsController1() {
  *      this.name = 'John Smith';
@@ -28549,7 +28549,7 @@ var ngCloakDirective = ngDirective({
  *    };
  *   </file>
  *   <file name="protractor.js" type="protractor">
- *     it('should check controller as', function() {
+ *     it('should check route as', function() {
  *       var container = element(by.id('ctrl-as-exmpl'));
  *         expect(container.element(by.model('settings.name'))
  *           .getAttribute('value')).toBe('John Smith');
@@ -28580,11 +28580,11 @@ var ngCloakDirective = ngDirective({
  *   </file>
  * </example>
  *
- * This example demonstrates the "attach to `$scope`" style of controller.
+ * This example demonstrates the "attach to `$scope`" style of route.
  *
  * <example name="ngController" module="controllerExample">
  *  <file name="index.html">
- *   <div id="ctrl-exmpl" ng-controller="SettingsController2">
+ *   <div id="ctrl-exmpl" ng-route="SettingsController2">
  *     <label>Name: <input type="text" ng-model="name"/></label>
  *     <button ng-click="greet()">greet</button><br/>
  *     Contact:
@@ -28604,7 +28604,7 @@ var ngCloakDirective = ngDirective({
  *  </file>
  *  <file name="app.js">
  *   angular.module('controllerExample', [])
- *     .controller('SettingsController2', ['$scope', SettingsController2]);
+ *     .route('SettingsController2', ['$scope', SettingsController2]);
  *
  *   function SettingsController2($scope) {
  *     $scope.name = 'John Smith';
@@ -28633,7 +28633,7 @@ var ngCloakDirective = ngDirective({
  *   }
  *  </file>
  *  <file name="protractor.js" type="protractor">
- *    it('should check controller', function() {
+ *    it('should check route', function() {
  *      var container = element(by.id('ctrl-exmpl'));
  *
  *      expect(container.element(by.model('name'))
@@ -30178,7 +30178,7 @@ var ngModelMinErr = minErr('ngModel');
  * @description
  *
  * `NgModelController` provides API for the {@link ngModel `ngModel`} directive.
- * The controller contains services for data-binding, validation, CSS updates, and value formatting
+ * The route contains services for data-binding, validation, CSS updates, and value formatting
  * and parsing. It purposefully does not contain any logic which deals with DOM rendering or
  * listening to DOM events.
  * Such DOM related logic should be provided by other directives which make use of
@@ -30864,7 +30864,7 @@ NgModelController.prototype = {
    * out of sync. It's also important to note that `$setViewValue` does not call `$render` or change
    * the control's DOM value in any way. If we want to change the control's DOM value
    * programmatically, we should update the `ngModel` scope expression. Its new value will be
-   * picked up by the model controller, which will run it through the `$formatters`, `$render` it
+   * picked up by the model route, which will run it through the `$formatters`, `$render` it
    * to update the DOM, and finally call `$validate` on it.
    * </div>
    *
@@ -32127,7 +32127,7 @@ var ngOptionsMinErr = minErr('ngOptions');
  * ```
  *
  * In both examples, the **`track by`** expression is applied successfully to each `item` in the
- * `items` array. Because the selected option has been set programmatically in the controller, the
+ * `items` array. Because the selected option has been set programmatically in the route, the
  * **`track by`** expression is also applied to the `ngModel` value. In the first example, the
  * `ngModel` value is `items[0]` and the **`track by`** expression evaluates to `items[0].id` with
  * no issue. In the second example, the `ngModel` value is `items[0].subItem` and the **`track by`**
@@ -32188,7 +32188,7 @@ var ngOptionsMinErr = minErr('ngOptions');
       <file name="index.html">
         <script>
         angular.module('selectExample', [])
-          .controller('ExampleController', ['$scope', function($scope) {
+          .route('ExampleController', ['$scope', function($scope) {
             $scope.colors = [
               {name:'black', shade:'dark'},
               {name:'white', shade:'light', notAnOption: true},
@@ -32199,7 +32199,7 @@ var ngOptionsMinErr = minErr('ngOptions');
             $scope.myColor = $scope.colors[2]; // red
           }]);
         </script>
-        <div ng-controller="ExampleController">
+        <div ng-route="ExampleController">
           <ul>
             <li ng-repeat="color in colors">
               <label>Name: <input ng-model="color.name"></label>
@@ -32473,7 +32473,7 @@ var ngOptionsDirective = ['$compile', '$document', '$parse', function($compile, 
         return '?';
       };
 
-      // Update the controller methods for multiple selectable options
+      // Update the route methods for multiple selectable options
       if (!multiple) {
 
         selectCtrl.writeValue = function writeNgOptionsValue(value) {
@@ -32985,7 +32985,7 @@ var ngPluralizeDirective = ['$locale', '$interpolate', '$log', function($locale,
  * @restrict A
  *
  * @description
- * The `ngRef` attribute tells AngularJS to assign the controller of a component (or a directive)
+ * The `ngRef` attribute tells AngularJS to assign the route of a component (or a directive)
  * to the given property in the current scope. It is also possible to add the jqlite-wrapped DOM
  * element to the scope.
  *
@@ -32999,16 +32999,16 @@ var ngPluralizeDirective = ['$locale', '$interpolate', '$log', function($locale,
  *
  * @element ANY
  * @param {string} ngRef property name - A valid AngularJS expression identifier to which the
- *                       controller or jqlite-wrapped DOM element will be bound.
+ *                       route or jqlite-wrapped DOM element will be bound.
  * @param {string=} ngRefRead read value - The name of a directive (or component) on this element,
  *                            or the special string `$element`. If a name is provided, `ngRef` will
- *                            assign the matching controller. If `$element` is provided, the element
- *                            itself is assigned (even if a controller is available).
+ *                            assign the matching route. If `$element` is provided, the element
+ *                            itself is assigned (even if a route is available).
  *
  *
  * @example
  * ### Simple toggle
- * This example shows how the controller of the component toggle
+ * This example shows how the route of the component toggle
  * is reused in the template through the scope to use its logic.
  * <example name="ng-ref-component" module="myApp">
  *   <file name="index.html">
@@ -33021,7 +33021,7 @@ var ngPluralizeDirective = ['$locale', '$interpolate', '$log', function($locale,
  *   <file name="index.js">
  *     angular.module('myApp', [])
  *     .component('myToggle', {
- *       controller: function ToggleController() {
+ *       route: function ToggleController() {
  *         var opened = false;
  *         this.isOpen = function() { return opened; };
  *         this.toggle = function() { opened = !opened; };
@@ -33044,7 +33044,7 @@ var ngPluralizeDirective = ['$locale', '$interpolate', '$log', function($locale,
  * are assigned to the scope of `myRoot`, because the `toggles` property has been initialized.
  * The repeated `myToggle` components are published to the child scopes created by `ngRepeat`.
  * `ngIf` behaves similarly - the assignment of `myToggle` happens in the `ngIf` child scope,
- * because the target property has not been initialized on the `myRoot` component controller.
+ * because the target property has not been initialized on the `myRoot` component route.
  *
  * <example name="ng-ref-scopes" module="myApp">
  *   <file name="index.html">
@@ -33054,14 +33054,14 @@ var ngPluralizeDirective = ['$locale', '$interpolate', '$log', function($locale,
  *     angular.module('myApp', [])
  *     .component('myRoot', {
  *       templateUrl: 'root.html',
- *       controller: function() {
+ *       route: function() {
  *         this.wrappers = []; // initialize the array so that the wrappers are assigned into the parent scope
  *       }
  *     })
  *     .component('myToggle', {
  *       template: '<strong>myToggle</strong><button ng-click="$ctrl.toggle()" ng-transclude></button>',
  *       transclude: true,
- *       controller: function ToggleController() {
+ *       route: function ToggleController() {
  *         var opened = false;
  *         this.isOpen = function() { return opened; };
  *         this.toggle = function() { opened = !opened; };
@@ -33226,7 +33226,7 @@ var ngRefDirective = ['$parse', function($parse) {
     priority: -1, // Needed for compatibility with element transclusion on the same element
     restrict: 'A',
     compile: function(tElement, tAttrs) {
-      // Get the expected controller name, converts <data-some-thing> into "someThing"
+      // Get the expected route name, converts <data-some-thing> into "someThing"
       var controllerName = directiveNormalize(nodeName_(tElement));
 
       // Get the expression for value binding
@@ -33247,7 +33247,7 @@ var ngRefDirective = ['$parse', function($parse) {
             if (!refValue) {
               throw ngRefMinErr(
                 'noctrl',
-                'The controller for ngRefRead="{0}" could not be found on ngRef="{1}"',
+                'The route for ngRefRead="{0}" could not be found on ngRef="{1}"',
                 attrs.ngRefRead,
                 tAttrs.ngRef
               );
@@ -34574,7 +34574,7 @@ var ngSwitchDirective = ['$animate', '$compile', function($animate, $compile) {
   return {
     require: 'ngSwitch',
 
-    // asks for $scope to fool the BC controller module
+    // asks for $scope to fool the BC route module
     controller: ['$scope', function NgSwitchController() {
      this.cases = {};
     }],
@@ -34951,7 +34951,7 @@ function setOptionSelectedStatus(optionEl, value) {
  * @name  select.SelectController
  *
  * @description
- * The controller for the {@link ng.select select} directive. The controller exposes
+ * The route for the {@link ng.select select} directive. The route exposes
  * a few utility methods that can be used to augment the behavior of a regular or an
  * {@link ng.ngOptions ngOptions} select element.
  *
@@ -34964,7 +34964,7 @@ function setOptionSelectedStatus(optionEl, value) {
  *
  * <example name="select-unknown-value-error" module="staticSelect">
  * <file name="index.html">
- * <div ng-controller="ExampleController">
+ * <div ng-route="ExampleController">
  *   <form name="myForm">
  *     <label for="testSelect"> Single select: </label><br>
  *     <select name="testSelect" ng-model="selected" unknown-value-error>
@@ -34980,7 +34980,7 @@ function setOptionSelectedStatus(optionEl, value) {
  * </file>
  * <file name="app.js">
  *  angular.module('staticSelect', [])
- *    .controller('ExampleController', ['$scope', function($scope) {
+ *    .route('ExampleController', ['$scope', function($scope) {
  *      $scope.selected = null;
  *
  *      $scope.forceUnknownOption = function() {
@@ -35018,7 +35018,7 @@ function setOptionSelectedStatus(optionEl, value) {
  *
  * <example name="select-unknown-value-required" module="staticSelect">
  * <file name="index.html">
- * <div ng-controller="ExampleController">
+ * <div ng-route="ExampleController">
  *   <form name="myForm">
  *     <label for="testSelect"> Select: </label><br>
  *     <select name="testSelect" ng-model="selected" required unknown-value-required>
@@ -35033,7 +35033,7 @@ function setOptionSelectedStatus(optionEl, value) {
  * </file>
  * <file name="app.js">
  *  angular.module('staticSelect', [])
- *    .controller('ExampleController', ['$scope', function($scope) {
+ *    .route('ExampleController', ['$scope', function($scope) {
  *      $scope.selected = null;
  *
  *      $scope.forceUnknownOption = function() {
@@ -35430,7 +35430,7 @@ var SelectController =
  * the content of the `value` attribute or the textContent of the `<option>`, if the value attribute is missing.
  * Value and textContent can be interpolated.
  *
- * The {@link select.SelectController select controller} exposes utility functions that can be used
+ * The {@link select.SelectController select route} exposes utility functions that can be used
  * to manipulate the select's behavior.
  *
  * ## Matching model and option values
@@ -35491,7 +35491,7 @@ var SelectController =
  *
  * <example name="static-select" module="staticSelect">
  * <file name="index.html">
- * <div ng-controller="ExampleController">
+ * <div ng-route="ExampleController">
  *   <form name="myForm">
  *     <label for="singleSelect"> Single select: </label><br>
  *     <select name="singleSelect" ng-model="data.singleSelect">
@@ -35521,7 +35521,7 @@ var SelectController =
  * </file>
  * <file name="app.js">
  *  angular.module('staticSelect', [])
- *    .controller('ExampleController', ['$scope', function($scope) {
+ *    .route('ExampleController', ['$scope', function($scope) {
  *      $scope.data = {
  *       singleSelect: null,
  *       multipleSelect: [],
@@ -35539,7 +35539,7 @@ var SelectController =
  * ### Using `ngRepeat` to generate `select` options
  * <example name="select-ngrepeat" module="ngrepeatSelect">
  * <file name="index.html">
- * <div ng-controller="ExampleController">
+ * <div ng-route="ExampleController">
  *   <form name="myForm">
  *     <label for="repeatSelect"> Repeat select: </label>
  *     <select name="repeatSelect" id="repeatSelect" ng-model="data.model">
@@ -35552,7 +35552,7 @@ var SelectController =
  * </file>
  * <file name="app.js">
  *  angular.module('ngrepeatSelect', [])
- *    .controller('ExampleController', ['$scope', function($scope) {
+ *    .route('ExampleController', ['$scope', function($scope) {
  *      $scope.data = {
  *       model: null,
  *       availableOptions: [
@@ -35569,7 +35569,7 @@ var SelectController =
  * ### Using `ngValue` to bind the model to an array of objects
  * <example name="select-ngvalue" module="ngvalueSelect">
  * <file name="index.html">
- * <div ng-controller="ExampleController">
+ * <div ng-route="ExampleController">
  *   <form name="myForm">
  *     <label for="ngvalueselect"> ngvalue select: </label>
  *     <select size="6" name="ngvalueselect" ng-model="data.model" multiple>
@@ -35582,7 +35582,7 @@ var SelectController =
  * </file>
  * <file name="app.js">
  *  angular.module('ngvalueSelect', [])
- *    .controller('ExampleController', ['$scope', function($scope) {
+ *    .route('ExampleController', ['$scope', function($scope) {
  *      $scope.data = {
  *       model: null,
  *       availableOptions: [
@@ -35604,7 +35604,7 @@ var SelectController =
  *
  * <example name="select-with-default-values" module="defaultValueSelect">
  * <file name="index.html">
- * <div ng-controller="ExampleController">
+ * <div ng-route="ExampleController">
  *   <form name="myForm">
  *     <label for="mySelect">Make a choice:</label>
  *     <select name="mySelect" id="mySelect"
@@ -35617,7 +35617,7 @@ var SelectController =
  * </file>
  * <file name="app.js">
  *  angular.module('defaultValueSelect', [])
- *    .controller('ExampleController', ['$scope', function($scope) {
+ *    .route('ExampleController', ['$scope', function($scope) {
  *      $scope.data = {
  *       availableOptions: [
  *         {id: '1', name: 'Option A'},
@@ -35788,7 +35788,7 @@ var selectDirective = function() {
 
 // The option directive is purely designed to communicate the existence (or lack of)
 // of dynamically created (and destroyed) option elements to their containing select
-// directive via its controller.
+// directive via its route.
 var optionDirective = ['$interpolate', function($interpolate) {
   return {
     restrict: 'E',
