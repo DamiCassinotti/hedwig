@@ -6,7 +6,7 @@
         calculateCountdown();
 
         function calculateCountdown() {
-            $scope.countdown = $scope.data.weddingDate - new Date();
+            $scope.countdown = $scope.data.weddingDate - Date.now();
             $scope.countdownSeconds = Math.floor(($scope.countdown / 1000) % 60);
             $scope.countdownMinutes = Math.floor(($scope.countdown / 60000) % 60);
             $scope.countdownHours = Math.floor(($scope.countdown / 3600000) % 24);
