@@ -1,3 +1,18 @@
-{{data.weddingDate | date: 'dd/MM/yyyy HH:mm'}}<br>
-Faltan {{countdownDays}} días, {{countdownHours}} horas, {{countdownMinutes}} minutos, {{countdownSeconds}} segundos<br>
-Save the date!
+<section class="cover fullscreen image-bg parallax overlay overlay-light">
+    <div class="background-image-holder">
+        <div class="container v-align-transform">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <h1 class="hero-title mb0 mb-xs-0 bold"><span>¡Nos casamos!</span></h1>
+                    <h2 class="nombres"><span>Pilar & Agustín</span></h2>
+                    <h3 class="date"><span>{{data.weddingDate | date : "EEEE dd 'de' MMMM, HH:mm 'hs'"}}</span></h3>
+                    <div class="countdown">
+                        <span>
+                            Faltan {{countdownDays}} días {{("0"+countdownHours).slice(-2)}}:{{("0"+countdownMinutes).slice(-2)}}:{{("0"+countdownSeconds).slice(-2)}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
