@@ -477,7 +477,7 @@ footer {
 
 .btn-filled {
     background: #b57f9a;
-    color: #fff
+    color: #fff !important;
 }
 
 .btn-filled:hover {
