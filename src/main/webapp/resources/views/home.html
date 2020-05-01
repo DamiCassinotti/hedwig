@@ -1,18 +1,249 @@
 <section class="cover fullscreen image-bg parallax overlay overlay-light">
     <div class="background-image-holder">
-        <div class="container v-align-transform">
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <h1 class="hero-title mb0 mb-xs-0 bold"><span>¡Nos casamos!</span></h1>
+        <img class="background-image" src="../resources/img/portada.jpg" alt="imagen">
+    </div>
+    <div class="container v-align-transform">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <div class="text-center">
+                    <h1 class="hero-title mb0 mb-xs-0 bold">
+                        <span>¡Nos Casamos!</span>
+                    </h1>
                     <h2 class="nombres"><span>Pilar & Agustín</span></h2>
-                    <h3 class="date"><span>{{data.weddingDate | date : "EEEE dd 'de' MMMM HH:mm 'hs'"}}</span></h3>
-                    <div class="countdown">
-                        <span>
-                            Faltan {{countdownDays}} días {{("0"+countdownHours).slice(-2)}}:{{("0"+countdownMinutes).slice(-2)}}:{{("0"+countdownSeconds).slice(-2)}}
-                        </span>
+
+                    <h3 class="date animated bounceIn" data-wow-duration="2s" data-wow-delay="1s">
+                        <span>{{data.weddingDate | date : "EEEE dd 'de' MMMM HH:mm 'hs'"}}</span>
+                    </h3>
+
+                    <div class="countdown mb12 animated bounceIn">
+                        <span>Faltan {{countdownDays}} días {{("0"+countdownHours).slice(-2)}}:{{("0"+countdownMinutes).slice(-2)}}:{{("0"+countdownSeconds).slice(-2)}}</span>
                     </div>
+
+                </div>
+
+                <a class="btn btn-lg inner-link btn-white-o mb0" id="btnc" href="#info">ver información</a>
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+
+<!-- Informacion -->
+<section id="infoc">
+    <div class="container">
+        <div class="row" id="info" style="margin: 0;">
+
+            <div class="has-image col-md-6 col-sm-12 nopadding order-1">
+                <div class="img-container" style="background-image: url(./images/ceremonia.jpg) !important;
+	background-position: center !important;
+	background-repeat: no-repeat !important;
+	background-size: cover !important;height:100%;">
+                </div>
+            </div>
+            <div class="has-content text-center col-md-6 col-sm-12 nopadding order-sm-1">
+                <div class="feature feature-top">
+                    <div class="text-center">
+                        <h5 class="uppercase"> Ceremonia</h5>
+                    </div>
+                    <p>Las mejores cosas de la vida merecen ser compartidas. <br>Los invitamos a las 17:00 hs a nuestra
+                        ceremonia en la<br>
+                        <b>Parroquia Nuestra Señora del Pilar</b><br><br>
+                        Lorenzo López 624, Pilar</p>
+                    <a class="btn btn-filled btn-lg mb0" target="_blank" href="https://goo.gl/maps/oUuxCxbuJNH2">Cómo
+                        Llegar</a>
+
                 </div>
             </div>
         </div>
+
+        <div class="row" id="infob" style="margin: 0;">
+
+            <div class="has-content text-center col-md-6 col-sm-12 order-md-1">
+                <div class="feature">
+                    <div class="text-center">
+                        <h5 class="uppercase"> Fiesta</h5>
+                    </div>
+                    <p>
+                        Después de la ceremonia los esperamos para festejar a partir de las 18:00 hs en<b>
+                        PILAR PALACE</b> <br><br>
+                        Av. Arturo Illia 13560, Del Viso, Buenos Aires</p>
+                    <p>No olviden <a href="#confirmar-asistencia" class="inner-link"><b>confirmar su presencia</b></a>
+                        al final de la invitación.
+                    </p>
+                    <a class="btn btn-filled btn-lg mb0" target="_blank" href="https://goo.gl/maps/UdseGQ3gNcT2">Cómo
+                        Llegar</a>
+                    <div>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="has-image col-md-6 col-sm-12 order-md-2 order-1 nopadding">
+                <div class="img-container" style="background-image: url(./images/fiesta.jpg) !important;
+                        background-position: center !important;
+                      	background-repeat: no-repeat !important;
+                      	background-size: cover !important;height:100%;">
+                </div>
+
+            </div>
+
+        </div>
     </div>
+</section>
+
+<!-- Regalo -->
+<section id="regalo">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-6 regalo-txt order-md-2" style="text-align:center;z-index: 99;">
+
+                <div class="section-heading" style="margin-top:-10px;">
+
+                    <img class="wow bounceIn" data-wow-duration="1s" src="./images/giftbox.png" width="80px" alt=""
+                         style="padding:5px;margin-bottom:15px;">
+
+                    <h2 class="uppercase mb8"></h2>
+                </div>
+                <p class=" mb16"><b>QUIEN DESEE HACERNOS UN REGALO</b><br>Puede ayudarnos con nuestra Luna de Miel <br>haciendonos
+                    un depósito a nuestra cuenta
+                    <br>
+
+                <div class="datos mb8" style="display:none;">
+                    Banco
+                    <br>Alias:
+                    <br>Nro Cta:
+                    <br>Titular:
+                </div>
+                ¡Muchas Gracias!
+                </p>
+
+                <a class="btn btn-filled btn-lg mb0" href="javascript:" onClick="$('.datos').toggle();">Ver datos</a>
+
+            </div>
+            <div class="col-lg-6 regalo-pic order-md-1">
+                <img src="./images/regalo.jpg" alt="" class="margin1 img-photo rotate2 img-responsive polaroid">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Galeria -->
+<section class="bg-secondary">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <h3 class="widget-title title-album mb16">Pilar & Matías</h3>
+                <p class="mb40 mb-xs-24">
+                    Nuestra historia... </p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="lightbox-grid square-thumbs" data-gallery-title="Gallery">
+                    <div class="item col-md-3 col-6 wow wow-mobile slideInLeft" data-wow-duration="1s">
+                        <a href="./images/f1.jpg" data-lightbox="Gallery">
+                            <div class="background-image-holder fadeIn">
+                                <img alt="image" class="background-image" src="./images/f1.jpg">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="item col-md-3 col-6 wow wow-mobile slideInRight" data-wow-duration="1s">
+                        <a href="images/f2.jpg" data-lightbox="true">
+                            <div class="background-image-holder">
+                                <img alt="image" class="background-image" src="images/f2.jpg">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="item col-md-3 col-6 wow wow-mobile slideInLeft" data-wow-duration="1s">
+                        <a href="./images/f3.jpg" data-lightbox="true">
+                            <div class="background-image-holder">
+                                <img alt="image" class="background-image" src="./images/f3.jpg">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="item col-md-3 col-6 wow wow-mobile slideInRight" data-wow-duration="1s">
+                        <a href="./images/f4.jpg" data-lightbox="true">
+                            <div class="background-image-holder">
+                                <img alt="image" class="background-image" src="./images/f4.jpg">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="item col-md-3 col-6 wow wow-mobile slideInLeft" data-wow-duration="1s">
+                        <a href="./images/f5.jpg" data-lightbox="true">
+                            <div class="background-image-holder">
+                                <img alt="image" class="background-image" src="./images/f5.jpg">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="item col-md-3 col-6 wow wow-mobile slideInRight" data-wow-duration="1s">
+                        <a href="./images/f6.jpg" data-lightbox="true">
+                            <div class="background-image-holder">
+                                <img alt="image" class="background-image" src="./images/f6.jpg">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="item col-md-3 col-6 wow wow-mobile slideInLeft" data-wow-duration="1s">
+                        <a href="./images/f7.jpg" data-lightbox="true">
+                            <div class="background-image-holder">
+                                <img alt="image" class="background-image" src="./images/f7.jpg">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="item col-md-3 col-6 wow wow-mobile slideInRight" data-wow-duration="1s">
+                        <a href="./images/f8.jpg" data-lightbox="true">
+                            <div class="background-image-holder">
+                                <img alt="image" class="background-image" src="./images/f8.jpg">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="insta page-title parallax2 image-bg overlay mb40 mb-xs-36">
+    <div class="background-image-holder">
+        <img alt="footer" class="background-image" src="./images/bg-insta.jpg">
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center">
+                <i class="fab fa-instagram fa-4x mb24"></i>
+                <h2>#pilarymatias</h2>
+                <p>Usá nuestro hashtag en Instagram para subir tus fotos y videos</p>
+                <a class="btn btn-white-o btn-lg mb0" target="_blank"
+                   href="https://www.instagram.com/explore/tags/wedding/">Ver en instagram</a>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Confirmacion -->
+<section class="page-title section-3 parallax image-bg overlay" id="confirmar-asistencia" style="height: 100%;">
+    <div class="background-image-holder">
+        <img alt="footer" class="background-image" src="./images/confirmacion.jpg">
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <div>
+                    <h3 class="uppercase mb0 bold">¡LOS ESPERAMOS!</h3>
+                    <p></p>
+                    <p class="mb40 mb-xs-24 conf">
+                        <b>Por favor confirmar asistencia por este medio <br>¡Gracias!</b>
+                    </p>
+
+                    <a class="btn btn-filled btn-lg mb0" href="#">Confirmar asistencia</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
 </section>
