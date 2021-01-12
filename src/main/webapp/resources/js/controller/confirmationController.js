@@ -12,11 +12,15 @@
 
 		$timeout(removeFade, 1);
 
-		$scope.ok = function(){
+		$scope.ok = function() {
+			$scope.submitted = true;
+			if ($scope.confirmationForm.$invalid) {
+				return;
+			}
 		    $uibModalInstance.close('OK');
 		}
 
-		$scope.cancel = function(){
+		$scope.cancel = function() {
 		    $uibModalInstance.dismiss();
 		}
 

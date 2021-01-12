@@ -1242,6 +1242,10 @@ h3.date {
 	font-weight: bolder;
 }
 
+.invalid-input {
+	border: 2px solid red;
+}
+
 @media (max-width: 767px) {
     hr.corta {
         max-width: 50px;

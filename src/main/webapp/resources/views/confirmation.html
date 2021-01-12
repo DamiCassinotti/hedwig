@@ -2,39 +2,42 @@
   	<h5 class="uppercase">Confirmación de asistencia</h5>
 </div>
 <div class="modal-body">
-	<div ng-repeat="person in persons">
-		 <div class="col-12 row">
-			 <div class="col-3">
-			 	<span>Nombre:</span>
-			</div>
-			<div class="col-9">
-			 	<input class="col-12" placeholder="Ingresá tu nombre" ng-model="person.name">
-			</div>
-		 </div>
-		 <div class="col-12 row">
-			 <div class="col-3">
-			 	<span>Apellido:</span>
-			</div>
-			<div class="col-9">
-				<input class="col-12" placeholder="Ingresá tu apellido" ng-model="person.lastName">
-			</div>
-		 </div>
-		 <div class="col-12 row">
-		 	<div class="col-3">
-			 	<span>Menú:</span>
-			</div>
-			<div class="col-9">
-				<select class="col-12" ng-model="person.menu">
-			   		 <option ng-selected="person.menu == 0" selected disabled value="NO_VALUE">Seleccioná tu menú</option>
-			   		 <option value="REGULAR">Regular</option>
-			   		 <option value="VEGETARIANO">Vegetariano</option>
-					 <option value="CELIACO">Celíaco</option>
-					 <option value="DIABETICO">Diabético</option>
-				 </select>
-			</div>
-		 </div>
-		 <hr ng-if="!$last"></hr>
- 	</div>
+	<form name="confirmationForm">
+		<div ng-repeat="person in persons">
+			 <div class="col-12 row">
+				 <div class="col-3">
+				 	<span>Nombre:</span>
+				</div>
+				<div class="col-9">
+				 	<input class="col-12" ng-class="{'invalid-input': submitted && !person.name}" placeholder="Ingresá tu nombre" ng-model="person.name" required>
+				</div>
+			 </div>
+			 <div class="col-12 row">
+				 <div class="col-3">
+				 	<span>Apellido:</span>
+				</div>
+				<div class="col-9">
+					<input class="col-12" ng-class="{'invalid-input': submitted && !person.lastName}" placeholder="Ingresá tu apellido" ng-model="person.lastName" required>
+				</div>
+			 </div>
+			 <div class="col-12 row">
+			 	<div class="col-3">
+				 	<span>Menú:</span>
+				</div>
+				<div class="col-9">
+					<select class="col-12" ng-class="{'invalid-input': submitted && person.menu=='NO_VALUE'}" name="menu" ng-model="person.menu" required>
+				   		 <option selected disabled value="NO_VALUE">Seleccioná tu menú</option>
+				   		 <option value="REGULAR">Regular</option>
+				   		 <option value="VEGETARIANO">Vegetariano</option>
+						 <option value="CELIACO">Celíaco</option>
+						 <option value="DIABETICO">Diabético</option>
+					 </select>
+				</div>
+			 </div>
+			 <hr ng-if="!$last"></hr>
+	 	</div>
+		<p ng-if="submitted && confirmationForm.$invalid" class="col-12">Por favor, completá todos los campos antes de confirmar.</p>
+	</form>
 </div>
 <div class="modal-footer">
 	<a class="btn btn-filled btn mb0" ng-click="addPerson()">Agregar invitado</a>
