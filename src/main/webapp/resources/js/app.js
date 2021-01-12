@@ -1,5 +1,5 @@
 (function () {
-    angular.module('hedwigApp', ['ngRoute']).config(function ($routeProvider) {
+    angular.module('hedwigApp', ['ngRoute', 'ui.bootstrap']).config(function ($routeProvider) {
         $routeProvider.when('/', {
             controller: 'homeController',
             templateUrl: 'resources/views/home.html',

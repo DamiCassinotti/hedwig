@@ -1,5 +1,5 @@
 (function () {
-    angular.module('hedwigApp').controller('homeController', ['$scope', 'data', '$interval', function ($scope, data, $interval) {
+    angular.module('hedwigApp').controller('homeController', ['$scope', 'data', '$interval', '$uibModal', function ($scope, data, $interval, $uibModal) {
 
         $scope.data = data;
         $scope.data.weddingDate = new Date($scope.data.weddingDate);
@@ -19,6 +19,22 @@
         }
 
         $interval(calculateCountdown, 1000);
+
+		$scope.openModal = function() {
+			var modalInstance =  $uibModal.open({
+		      templateUrl: "resources/views/confirmation.html",
+		      controller: "ConfirmationController",
+		      windowClass: 'confirmationClass',
+		    });
+
+		    modalInstance.result.then(function(response) {
+				if (response == 'OK') {
+					data.confirmed = true
+				} else {
+
+				}
+		    });
+		}
 
     }]);
 })();
