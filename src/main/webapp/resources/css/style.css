@@ -1784,6 +1784,18 @@ h3.date {
 	.background-image-holder {
 		width: 120%;
 	}
+	.pic1, .pic2, .pic3, .pic4, .pic7, .pic8, .pic11, .pic13, .pic15, .pic16 {
+		width: 100% !important;
+	}
+	.pic6, .pic9 {
+		width: 87% !important;
+	}
+	.pic10 {
+		width: 58% !important;
+	}
+	.background-image-holder-pic10 {
+		width: 180%
+	}
 }
 
 @media (max-width: 425px) {
@@ -1792,6 +1804,18 @@ h3.date {
 	}
 	.background-image-holder {
 		width: 168%;
+	}
+	.pic1, .pic2, .pic3, .pic4, .pic5, .pic8, .pic9, .pic10, .pic11, .pic13, .pic15 {
+		width: 62% !important;
+	}
+	.pic7, .pic16 {
+		width: 70% !important;
+	}
+	.pic5, .pic12 {
+		width: 100% !important;
+	}
+	.background-image-holder-pic6, .background-image-holder-pic9 {
+		width: 105% !important;
 	}
 }
 
@@ -1809,5 +1833,17 @@ h3.date {
 		margin-bottom: 20px !important;
 	    margin-right: 0px;
 	    margin-left: 3.5px;
+	}
+	.pic1, .pic2, .pic3, .pic4, .pic8, .pic11, .pic13, .pic15 {
+		width: 55% !important;
+	}
+	.pic7, .pic16 {
+		width: 70% !important;
+	}
+	.pic5, .pic12 {
+		width: 100% !important;
+	}
+	.background-image-holder-pic6, .background-image-holder-pic9 {
+		width: 105% !important;
 	}
 }
