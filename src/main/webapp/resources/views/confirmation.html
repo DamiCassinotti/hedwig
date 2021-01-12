@@ -26,7 +26,7 @@
 				</div>
 				<div class="col-9">
 					<select class="col-12" ng-class="{'invalid-input': submitted && person.menu=='NO_VALUE'}" name="menu" ng-model="person.menu" required>
-				   		 <option selected disabled value="NO_VALUE">Seleccioná tu menú</option>
+				   		 <option ng-selected="person.menu == 0" selected disabled value="NO_VALUE">Seleccioná tu menú</option>
 				   		 <option value="REGULAR">Regular</option>
 				   		 <option value="VEGETARIANO">Vegetariano</option>
 						 <option value="CELIACO">Celíaco</option>

@@ -14,7 +14,7 @@
                 if (response.status === 200)
                     return callback(response.data, delay);
                 else
-                    alert("No funciono! Avisale a Agus o a Pili!")
+                    alert("Algo salió mal! Avisale a Agus o a Pili!")
             });
 
             return delay.promise;
