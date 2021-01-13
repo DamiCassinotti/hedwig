@@ -1,0 +1,3 @@
+{
+	"database": "postgres://damian:password@localhost:5432/damian"
+}

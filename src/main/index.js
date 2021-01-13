@@ -1,7 +1,12 @@
 let express = require('express'),
     bodyParser = require('body-parser'),
     port = process.env.PORT || 3000,
-    homeRoutes = require('./route/homeRoutes');
+    homeRoutes = require('./route/homeRoutes'),
+	config = require('./config.json');
+
+var pg = require('pg'),
+	connectionString = process.env.DATABASE_URL || config.database;
+client = new pg.Client(connectionString);
 
 bootstrapApp = () => {
     let app = express();
@@ -27,6 +32,7 @@ bootstrapApp = () => {
 const server = {
     start: (onStart) => {
         let app = bootstrapApp();
+		client.connect();
         app.listen(port, () => onStart(port));
     },
     bootstrapApp

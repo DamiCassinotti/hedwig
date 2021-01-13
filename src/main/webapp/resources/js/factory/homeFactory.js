@@ -7,8 +7,15 @@
             })
         }
 
+		function confirmAssistance(persons) {
+			return dataFactory.postSimpleData('/confirmAssistance', persons, (data, delay) => {
+				return delay.resolve(data);
+			})
+		}
+
         return {
-            getWeddingDate: getWeddingDate
+            getWeddingDate: getWeddingDate,
+            confirmAssistance: confirmAssistance,
         };
     }])
 })()

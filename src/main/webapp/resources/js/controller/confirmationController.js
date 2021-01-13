@@ -17,7 +17,7 @@
 			if ($scope.confirmationForm.$invalid) {
 				return;
 			}
-		    $uibModalInstance.close('OK');
+		    $uibModalInstance.close($scope.persons);
 		}
 
 		$scope.cancel = function() {

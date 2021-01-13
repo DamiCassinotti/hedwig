@@ -1,5 +1,5 @@
 (function () {
-    angular.module('hedwigApp').controller('homeController', ['$scope', 'data', '$interval', '$uibModal', function ($scope, data, $interval, $uibModal) {
+    angular.module('hedwigApp').controller('homeController', ['$scope', 'data', '$interval', '$uibModal', 'ConfirmationService', function ($scope, data, $interval, $uibModal, ConfirmationService) {
 
         $scope.data = data;
         $scope.data.weddingDate = new Date($scope.data.weddingDate);
@@ -28,10 +28,10 @@
 		    });
 
 		    modalInstance.result.then(function(response) {
-				if (response == 'OK') {
-					data.confirmed = true
-				} else {
-
+				let persons = response;
+				let result = ConfirmationService.confirmAssistance(persons);
+				if (result) {
+					console.log("OK");
 				}
 		    });
 		}
