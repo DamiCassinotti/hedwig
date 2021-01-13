@@ -10,13 +10,14 @@
                 async: false
             };
             let options = angular.extend(defaultOptions, customOptions);
-            $http(options).then(function (response) {
-                if (response.status === 200)
+            $http(options)
+				.then(function (response) {
                     return callback(response.data, delay);
-                else
-                    alert("Algo salió mal! Avisale a Agus o a Pili!");
+                })
+				.catch(function(error) {
+					alert("Algo salió mal! Avisale a Agus o a Pili!");
 					return callback(undefined, delay);
-            });
+				});
 
             return delay.promise;
         }
@@ -31,13 +32,14 @@
 				data: data
             };
             let options = angular.extend(defaultOptions, customOptions);
-            $http(options).then(function (response) {
-                if (response.status === 200)
-                    return callback(true, delay);
-                else
-                    alert("Algo salió mal! Avisale a Agus o a Pili!");
+            $http(options)
+				.then(function (response) {
+	                return callback(true, delay);
+	            })
+				.catch(function(error) {
+					alert("Algo salió mal! Avisale a Agus o a Pili!");
 					return callback(false, delay);
-            });
+				});
 
             return delay.promise;
 		}

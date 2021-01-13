@@ -2,7 +2,7 @@ exports.confirmAssistance = (persons) => {
 	return new Promise((resolve, reject) => {
 		console.log("Service - Got persons: " + persons)
 		var query = {
-			text: 'INSERT INTO ASSISTANCE (name, last_name, menu) VALUES ',
+			text: 'INSERT INTO ASSISTANCE_fake (name, last_name, menu) VALUES ',
 			values: []
 		};
 		for (var i = 0; i < persons.length; i++) {
@@ -23,6 +23,28 @@ exports.confirmAssistance = (persons) => {
 			.then(async () => {
 				resolve();
 			})
-			.catch(error => reject(error));
+			.catch(error => {
+				console.error("Got an error on service!");
+				console.error(error);
+				reject(error)
+			});
+	})
+}
+
+exports.confirmedAssistance = () => {
+	return new Promise((resolve, reject) => {
+		var query = {
+			text: 'SELECT * FROM ASSISTANCE;'
+		};
+		console.log("Query: " + query.text);
+		client.query(query)
+			.then(data => {
+				resolve(data.rows);
+			})
+			.catch(error => {
+				console.error("Got an error on service!");
+				console.error(error);
+				reject(error)
+			});
 	})
 }
