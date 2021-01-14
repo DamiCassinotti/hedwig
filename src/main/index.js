@@ -6,8 +6,12 @@ let express = require('express'),
 
 var pg = require('pg'),
 	connectionString = process.env.DATABASE_URL || config.database;
-console.log('Connecting to database: ' + connectionString);
-client = new pg.Client(connectionString);
+client = new pg.Client({
+	connectionString: connectionString,
+	ssl: {
+		rejectUnauthorized: false
+	}
+}});
 
 bootstrapApp = () => {
     let app = express();
