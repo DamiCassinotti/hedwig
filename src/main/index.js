@@ -11,7 +11,7 @@ client = new pg.Client({
 	ssl: {
 		rejectUnauthorized: false
 	}
-}});
+});
 
 bootstrapApp = () => {
     let app = express();
