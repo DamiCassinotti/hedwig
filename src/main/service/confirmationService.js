@@ -24,8 +24,8 @@ exports.confirmAssistance = (persons) => {
 				resolve();
 			})
 			.catch(error => {
-				console.error("Got an error on service!");
-				console.error(error);
+				console.log("[ERROR] Got an error on service!");
+				console.log(error);
 				reject(error)
 			});
 	})
@@ -42,8 +42,8 @@ exports.confirmedAssistance = () => {
 				resolve(data.rows);
 			})
 			.catch(error => {
-				console.error("Got an error on service!");
-				console.error(error);
+				console.log("[ERROR] Got an error on service!");
+				console.log(error);
 				reject(error)
 			});
 	})

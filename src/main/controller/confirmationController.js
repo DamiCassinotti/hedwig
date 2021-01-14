@@ -6,8 +6,8 @@ exports.confirmAssistance = (persons) => {
 		confirmationService.confirmAssistance(persons)
 			.then(resolve())
 			.catch(error => {
-				console.error("Got an error on controller!");
-				console.error(error);
+				console.log("[ERROR] Got an error on controller!");
+				console.log(error);
 				reject(error);
 			});
 	})
@@ -18,8 +18,8 @@ exports.confirmedAssistance = () => {
 		confirmationService.confirmedAssistance()
 			.then(data => resolve(data))
 			.catch(error => {
-				console.error("Got an error on controller!");
-				console.error(error);
+				console.log("[ERROR] Got an error on controller!");
+				console.log(error);
 				reject(error);
 			});
 	})

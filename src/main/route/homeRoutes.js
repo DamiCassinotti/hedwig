@@ -12,8 +12,8 @@ router.post('/confirmAssistance', (req, res) => {
 	confirmationController.confirmAssistance(req.body)
 		.then(res.status(201).send("OK"))
 		.catch(error => {
-			console.error("Got an error on route!");
-			console.error(error);
+			console.log("[ERROR] Got an error on route!");
+			console.log(error);
 			res.status(500)
 		})
 });
@@ -22,8 +22,8 @@ router.get('/confirmedAssistance', (req, res) => {
 	confirmationController.confirmedAssistance()
 		.then(data => res.status(201).json(data))
 		.catch(error => {
-			console.error("Got an error on route!");
-			console.error(error);
+			console.log("[ERROR] Got an error on route!");
+			console.log(error);
 			res.status(500)
 		})
 });
