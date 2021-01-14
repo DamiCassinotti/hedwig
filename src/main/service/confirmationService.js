@@ -2,7 +2,7 @@ exports.confirmAssistance = (persons) => {
 	return new Promise((resolve, reject) => {
 		console.log("Service - Got persons: " + persons)
 		var query = {
-			text: 'INSERT INTO ASSISTANCE_fake (name, last_name, menu) VALUES ',
+			text: 'INSERT INTO ASSISTANCE (name, last_name, menu) VALUES ',
 			values: []
 		};
 		for (var i = 0; i < persons.length; i++) {
