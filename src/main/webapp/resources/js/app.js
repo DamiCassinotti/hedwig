@@ -8,6 +8,14 @@
                     return homeFactory.getWeddingDate();
                 }]
             }
+        }).when('/invitados', {
+            controller: 'ConfirmedListController',
+            templateUrl: 'resources/views/list.html',
+            resolve: {
+                data: ['confirmedListFactory', function (confirmedListFactory) {
+                    return confirmedListFactory.getConfirmedList();
+                }]
+            }
         }).otherwise({redirectTo: '/'});
     });
 })();
