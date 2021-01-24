@@ -6,6 +6,8 @@ const router = express.Router();
 
 router.get('/', (req, res) => {res.sendFile('index.html', { root: path.join(__dirname, '../webapp') })});
 
+router.get('/healthCheck', (req, res) => {res.status(200).send("Up & Running!")});
+
 router.get('/weddingDate', (req, res) => {res.json({"weddingDate": new Date("2021-03-20T16:30:00.000-03:00")})});
 
 router.post('/confirmAssistance', (req, res) => {
