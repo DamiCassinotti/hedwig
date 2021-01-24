@@ -783,7 +783,7 @@ img {
 
 .cover span {
     color: white;
-    background-color: #80808059;
+    /*background-color: #80808059;*/
 }
 
 .cover h1, .cover h2, .cover h3, .cover h4, .cover h5, .cover h6, .cover li, .cover p, .cover span {
@@ -837,11 +837,11 @@ img {
 
 /*!---------- 15. COUNTDOWN ----------*/
 .countdown {
-    font-family: Roboto, Helvetica, sans-serif;
+    font-family: 'Amatic SC';
     font-size: 50px;
     line-height: 60px;
     font-weight: 100;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
     width: 400px;
     margin: 0 auto 20px
 }
