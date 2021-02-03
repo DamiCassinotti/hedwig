@@ -357,7 +357,7 @@ footer .copy {
 }
 
 footer, section {
-    padding: 55px 0;
+    padding-top: 55px;
     position: relative;
     overflow: hidden
 }
@@ -1246,6 +1246,18 @@ h3.date {
 	border: 2px solid red;
 }
 
+.bullet-list {
+	text-align: left;
+}
+
+.bullet-list > li {
+	list-style: disc;
+}
+
+.bullet-list > li::marker {
+  	color: #b57f9a;
+}
+
 @media (max-width: 767px) {
     hr.corta {
         max-width: 50px;
@@ -1304,7 +1316,7 @@ h3.date {
         font-size: 2rem
     }
 
-    p {
+    p, ul {
         font-size: 14px
     }
 
