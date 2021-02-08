@@ -8,7 +8,7 @@ exports.confirmAssistance = (persons) => {
 		for (var i = 0; i < persons.length; i++) {
 			console.log("Adding one person to query");
 			let person = persons[i]
-			query.text = query.text + '($1, $2, $3)';
+			query.text = query.text + '($' + (1+3*i) + ', $' + (2+3*i) + ', $' + (3+3*i) + ')';
 			query.values.push(person.name);
 			query.values.push(person.lastName);
 			query.values.push(person.menu);
