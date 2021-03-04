@@ -8,7 +8,7 @@ exports.confirmAssistance = (persons) => {
 			.catch(error => {
 				console.log("[ERROR] Got an error on controller!");
 				console.log(error);
-				reject(error);
+				reject(error)
 			});
 	})
 }
